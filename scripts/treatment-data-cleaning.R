@@ -117,7 +117,7 @@ head(fac.supportive) #11923
 fac.supportive.sf <- st_as_sf(fac.supportive, coords = c("longitude","latitude"), crs = 4326)
 tm_shape(fac.supportive.sf) + tm_dots()
 
-write.csv(fac.supportive, "us-supportive-services.csv")
+write.csv(fac.supportive, "../indicators_raw/us-supportive-services.csv",row.names = FALSE)
 
 ###################
 ## Residential Services
@@ -187,7 +187,8 @@ tm_shape(fac.abstinence.sf) + tm_dots()
 fac.abstinence.2<- fac %>%
   filter(twfa == 1 |  nmoa == 1 ) #178
 
-fac.abstinence.2 <- select(fac.abstinence.2, name1, type_facility, longitude, latitude)
+fac.abstinence.2 <- na.omit(select(fac.abstinence.2, name1, type_facility, longitude, latitude))
+#6064
 fac.abstinence.2.sf <- st_as_sf(fac.abstinence.2, coords = c("longitude","latitude"), crs = 4326)
 tm_shape(fac.abstinence.2.sf) + tm_dots()
 
