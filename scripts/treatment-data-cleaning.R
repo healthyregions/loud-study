@@ -3,15 +3,15 @@
 ## Environment Setup
 ###################
 
-setwd("~/Code/working-folder")
+setwd("~/Code/loud-study/scripts")
 
 library(tidyverse)
 library(sf)
 library(tmap)
 
-fac <- read.csv("facility-detail.csv")
-View(fac) #662
-head(fac)
+fac <- read.csv("../indicators_raw/facility-detail.csv", header = TRUE)
+str(fac) #662
+glimpse(fac)
 
 # Original data file name:
 # FindTreament_Facility_listing_2025_08_19_150020
@@ -89,6 +89,35 @@ fac.supportive<- fac %>%
 fac.supportive <- select(fac.supportive, name1, type_facility, longitude, latitude)
 fac.supportive.sf <- st_as_sf(fac.supportive, coords = c("longitude","latitude"), crs = 4326)
 tm_shape(fac.supportive.sf) + tm_dots()
+
+
+### Do it for the whole U.S.
+
+fac.us <- read.csv("../indicators_raw/us-facility-detail.csv", header = TRUE)
+str(fac.us) #13336
+
+# Combination: Any of the above, as part of SU category
+fac.supportive<- fac.us %>%
+  filter(type_facility == "SU" & 
+           (hs == 1 |
+              peer == 1 |
+              cm == 1 | 
+              tele == 1 |
+              mhs == 1 |
+              #ipc == 1 |
+              ta == 1 ))
+              #vrs == 1 |
+              #semp == 1 |
+             # cdm == 1 | 
+              #lad == 1 ))
+            #13230
+
+fac.supportive <- na.omit(select(fac.supportive, name1, type_facility, longitude, latitude))
+head(fac.supportive) #11923
+fac.supportive.sf <- st_as_sf(fac.supportive, coords = c("longitude","latitude"), crs = 4326)
+tm_shape(fac.supportive.sf) + tm_dots()
+
+write.csv(fac.supportive, "us-supportive-services.csv")
 
 ###################
 ## Residential Services
