@@ -120,40 +120,6 @@ tm_shape(fac.supportive.sf) + tm_dots()
 write.csv(fac.supportive, "../indicators_raw/us-supportive-services.csv",row.names = FALSE)
 
 ###################
-## Residential Services
-###################
-## Data Review
-###################
-
-# Residential/24-hour residential
-fac.res<- fac %>%
-  filter(res == 1) #170
-
-# Residential treatment center (RTC) for adults
-fac.rtca<- fac %>%
-  filter(rtca == 1) #41
-
-# Residential detoxification
-fac.rd<- fac %>%
-  filter(rd == 1) #20
-
-# Long-term residential
-fac.rl<- fac %>%
-  filter(rl == 1) #82
-
-# Short-term residential
-fac.rs<- fac %>%
-  filter(rs == 1) #28
-
-# Combination: Any of the above
-fac.residential<- fac %>%
-  filter(res == 1 | rtca == 1 | rd == 1 | rl == 1 | rs == 1 ) #170
-
-fac.residential <- select(fac.residential, name1, type_facility, longitude, latitude)
-fac.residential.sf <- st_as_sf(fac.residential, coords = c("longitude","latitude"), crs = 4326)
-tm_shape(fac.residential.sf) + tm_dots()
-
-###################
 ## Abstinence-Based Services
 ###################
 ## Data Review
@@ -192,3 +158,43 @@ fac.abstinence.2 <- na.omit(select(fac.abstinence.2, name1, type_facility, longi
 fac.abstinence.2.sf <- st_as_sf(fac.abstinence.2, coords = c("longitude","latitude"), crs = 4326)
 tm_shape(fac.abstinence.2.sf) + tm_dots()
 
+write.csv(fac.abstinence.2, "../indicators_raw/us-abstinence-services.csv",row.names = FALSE)
+head(fac.abstinence.2)
+
+
+### Didn't use below
+
+
+###################
+## Residential Services
+###################
+## Data Review
+###################
+
+# Residential/24-hour residential
+fac.res<- fac %>%
+  filter(res == 1) #170
+
+# Residential treatment center (RTC) for adults
+fac.rtca<- fac %>%
+  filter(rtca == 1) #41
+
+# Residential detoxification
+fac.rd<- fac %>%
+  filter(rd == 1) #20
+
+# Long-term residential
+fac.rl<- fac %>%
+  filter(rl == 1) #82
+
+# Short-term residential
+fac.rs<- fac %>%
+  filter(rs == 1) #28
+
+# Combination: Any of the above
+fac.residential<- fac %>%
+  filter(res == 1 | rtca == 1 | rd == 1 | rl == 1 | rs == 1 ) #170
+
+fac.residential <- select(fac.residential, name1, type_facility, longitude, latitude)
+fac.residential.sf <- st_as_sf(fac.residential, coords = c("longitude","latitude"), crs = 4326)
+tm_shape(fac.residential.sf) + tm_dots()
