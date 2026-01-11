@@ -78,3 +78,64 @@ st_write(loud.stage4.sf, "../data_final/loud.stage4.geojson")
 # Typology of laws restricting access to methadone
 # Availability of supportive services 
 
+# Typology of laws restricting access to methadone
+
+histRstMMT <- read.csv("../indicators_raw/histRstMMT_state23.csv")
+head(histRstMMT)
+histRstMMT.df <- select(histRstMMT,HEROP_ID,HistRstMMT)
+head(histRstMMT.df)
+
+histRstMMT.df$HEROP_State <- str_sub(histRstMMT.df$HEROP_ID, 6,7)
+head(histRstMMT.df)
+
+histRstMMT.df1 <- select(histRstMMT.df,HEROP_State,HistRstMMT)
+dim(histRstMMT.df1)
+
+# Availability of supportive services 
+supportive <- read.csv("../indicators_raw/supportives-tract-2020.csv")
+head(supportive)
+supportive.df <- select(supportive,HEROP_ID,minutes)
+head(supportive.df)
+
+supportive.df1 <- supportive.df %>%
+  rename(supportive = minutes)
+
+head(supportive.df1)
+dim(supportive.df1) # 85187
+
+
+## Merging
+loud.stage5.df <- merge(loud.stage4.df3, supportive.df1, by="HEROP_ID")
+head(loud.stage5.df)
+dim(loud.stage5.df) #83228
+
+## 
+loud.stage5.df$HEROP_State <- str_sub(loud.stage5.df$HEROP_ID, 6,7)
+head(loud.stage5.df)
+
+loud.stage5.df2 <- merge(loud.stage5.df, histRstMMT.df1, by="HEROP_State")
+head(loud.stage5.df2)
+
+## rescale
+loud.stage5.df2$supportiveSc <- loud.stage5.df2$supportive * (-1)
+
+### Stage 5 Prep
+loud.stage5.df2$supportivePL <- percent_rank(loud.stage5.df2$supportive)
+loud.stage5.df2$HistRstMMTPPL <- percent_rank(loud.stage5.df2$HistRstMMT)
+head(loud.stage5.df2)
+
+# Equally Weighted
+loud.stage5.df2$Stage5 <- (loud.stage5.df2$supportivePL + loud.stage5.df2$HistRstMMTPPL)/3
+hist(loud.stage5.df2$Stage5)
+head(loud.stage5.df2)
+
+save(loud.stage5.df2,  file = "../data_final/loud_stage4-5.RData")
+
+write.csv(loud.stage5.df2, "../data_final/loud_stage4-5.csv", row.names = FALSE)
+
+library(sf)
+tract.sf <- st_read("https://herop-geodata.s3.us-east-2.amazonaws.com/census/tract-2022-500k.geojson")
+head(tract.sf)
+tract.sf1 <- select(tract.sf,HEROP_ID,GEOID)
+loud.stage5.df2 <- left_join(tract.sf1,loud.stage5.df2, by="HEROP_ID")
+st_write(loud.stage5.df2, "../data_final/loud.stage4-5.geojson")

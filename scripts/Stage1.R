@@ -109,7 +109,7 @@ save(loud.stage1.df,  file = "../data_final/loud_stage1.RData")
 write.csv(loud.stage1.df, "../data_final/loud_stage1.csv", row.names = FALSE)
 
 library(sf)
-tract.sf <- st_read("https://herop-geodata.s3.us-east-2.amazonaws.com/census/tract-2010-500k.geojson")
+tract.sf <- st_read("https://herop-geodata.s3.us-east-2.amazonaws.com/census/tract-2022-500k.geojson")
 loud.stage1.sf <- left_join(tract.sf,loud.stage1.df, by="HEROP_ID")
 st_write(loud.stage1.sf, "../data_final/loud.stage1.geojson")
 
