@@ -159,7 +159,11 @@ fac.abstinence.2.sf <- st_as_sf(fac.abstinence.2, coords = c("longitude","latitu
 tm_shape(fac.abstinence.2.sf) + tm_dots()
 
 write.csv(fac.abstinence.2, "../indicators_raw/us-abstinence-services.csv",row.names = FALSE)
+
+test<- st_drop_geometry(fac.abstinence.2.sf)
 head(fac.abstinence.2)
+write.csv(fac.abstinence.2, "../indicators_raw/us-abstinence-services.csv",row.names = FALSE)
+
 
 
 ### Didn't use below
