@@ -53,9 +53,17 @@ head(moud)
 moud.loud <- moud
 head(moud.loud)
 
-## Pharmacy Availabilty
+## Pharmacy Availability
 pharmacy <- read.csv("~/Downloads/pharmacy-tract-2025.csv")
 # this is incorrect -- only 3234 variables
+
+pharmacy <- read.csv("../indicators_raw/Pharmacy-2025.csv")
+head(pharmacy)
+summary(pharmacy) 
+
+pharmacy.loud <- select(pharmacy, HEROP_ID,PharmTmDr2)
+pharmacy.loud$PharmTmDr2Sc <- pharmacy.loud$PharmTmDr2 * (-1)
+head(pharmacy.loud)
 
 ## FQHC
 fqhc <- read.csv("../indicators_raw/fqhc-tract-2025.csv")
