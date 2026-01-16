@@ -1,52 +1,52 @@
-NAME,GEOID,STUSPS,HEROP_ID,HistRstMMT,Explicitly incorporated X-Waiver provisions,Required counseling for patients,Established minimum counseling frequency,Required drug testing,Specified frequency of testing,Regulated maintenance dosage,Regulated initiation dosage,"Regulated practitioner response to patient ""non-compliance"" (seems mixed)"
-Alabama,1,AL,040US01,2,0,0,0,0,0,0,0,0
-Alaska,2,AK,040US02,2,1,0,0,1,0,0,0,0
-Arizona,4,AZ,040US04,3,0,0,0,0,0,0,0,0
-Arkansas,5,AR,040US05,2,0,0,0,0,0,0,0,0
-California,6,CA,040US06,1,0,0,0,0,0,0,0,0
-Colorado,8,CO,040US08,1,1,1,0,1,0,0,0,1
-Connecticut,9,CT,040US09,2,0,0,0,0,0,0,0,0
-Delaware,10,DE,040US10,3,0,0,0,0,0,0,0,0
-District of Columbia,11,DC,040US11,3,0,1,0,1,0,0,0,0
-Florida,12,FL,040US12,1,0,1,0,0,0,0,0,0
-Georgia,13,GA,040US13,2,0,0,0,0,0,0,0,0
-Hawaii,15,HI,040US15,3,0,0,0,0,0,0,0,0
-Idaho,16,ID,040US16,3,0,0,0,0,0,0,0,0
-Illinois,17,IL,040US17,3,0,0,0,0,0,0,0,0
-Indiana,18,IN,040US18,1,1,1,0,1,0,0,0,1
-Iowa,19,IA,040US19,3,0,0,0,0,0,0,0,0
-Kansas,20,KS,040US20,1,0,0,0,0,0,0,0,0
-Kentucky,21,KY,040US21,1,1,1,0,1,1,1,1,1
-Louisiana,22,LA,040US22,2,0,0,0,0,0,0,0,0
-Maine,23,ME,040US23,2,0,0,0,1,0,0,0,1
-Maryland,24,MD,040US24,3,0,0,0,0,0,0,0,0
-Massachusetts,25,MA,040US25,3,1,1,0,1,0,0,0,1
-Michigan,26,MI,040US26,3,0,0,0,0,0,0,0,0
-Minnesota,27,MN,040US27,3,0,0,0,0,0,0,0,0
-Mississippi,28,MS,040US28,2,0,0,0,0,0,0,0,0
-Missouri,29,MO,040US29,1,0,0,0,0,0,0,0,0
-Montana,30,MT,040US30,3,0,0,0,0,0,0,0,0
-Nebraska,31,NE,040US31,2,0,0,0,0,0,0,0,0
-Nevada,32,NV,040US32,3,0,0,0,0,0,0,0,0
-New Hampshire,33,NH,040US33,2,0,0,0,0,0,0,0,0
-New Jersey,34,NJ,040US34,2,1,1,1,1,0,0,0,0
-New Mexico,35,NM,040US35,2,0,0,0,0,0,0,0,0
-New York,36,NY,040US36,1,1,1,0,1,0,0,0,1
-North Carolina,37,NC,040US37,1,0,0,0,0,0,0,0,0
-North Dakota,38,ND,040US38,3,0,0,0,0,0,0,0,0
-Ohio,39,OH,040US39,1,1,1,0,1,1,1,1,1
-Oklahoma,40,OK,040US40,3,0,0,0,0,0,0,0,0
-Oregon,41,OR,040US41,3,0,0,0,0,0,0,0,0
-Pennsylvania,42,PA,040US42,1,0,0,0,0,0,0,0,0
-Rhode Island,44,RI,040US44,3,0,0,0,0,0,0,0,0
-South Carolina,45,SC,040US45,2,0,0,0,0,0,0,0,0
-South Dakota,46,SD,040US46,3,0,0,0,0,0,0,0,0
-Tennessee,47,TN,040US47,1,1,1,1,1,1,1,1,1
-Texas,48,TX,040US48,3,0,0,0,0,0,0,0,0
-Utah,49,UT,040US49,3,0,0,0,0,0,0,0,0
-Vermont,50,VT,040US50,3,0,0,0,0,0,0,0,1
-Virginia,51,VA,040US51,2,1,1,0,1,1,1,1,0
-Washington,53,WA,040US53,3,0,0,0,0,0,0,0,0
-West Virginia,54,WV,040US54,1,1,1,1,1,1,1,1,1
-Wisconsin,55,WI,040US55,3,1,1,0,1,1,1,1,1
-Wyoming,56,WY,040US56,0,0,0,0,0,0,0,0,0
+NAME,GEOID,STUSPS,HEROP_ID,HistRstMMT,Explicitly incorporated X-Waiver provisions,Required counseling for patients,Established minimum counseling frequency,Required drug testing,Specified frequency of testing,Regulated maintenance dosage,Regulated initiation dosage,"Regulated practitioner response to patient ""non-compliance"" (seems mixed)",BupPolRst
+Alabama,1,AL,040US01,2,0,0,0,0,0,0,0,0,0
+Alaska,2,AK,040US02,2,1,0,0,1,0,0,0,0,2
+Arizona,4,AZ,040US04,3,0,0,0,0,0,0,0,0,0
+Arkansas,5,AR,040US05,2,0,0,0,0,0,0,0,0,0
+California,6,CA,040US06,1,0,0,0,0,0,0,0,0,0
+Colorado,8,CO,040US08,1,1,1,0,1,0,0,0,1,4
+Connecticut,9,CT,040US09,2,0,0,0,0,0,0,0,0,0
+Delaware,10,DE,040US10,3,0,0,0,0,0,0,0,0,0
+District of Columbia,11,DC,040US11,3,0,1,0,1,0,0,0,0,2
+Florida,12,FL,040US12,1,0,1,0,0,0,0,0,0,1
+Georgia,13,GA,040US13,2,0,0,0,0,0,0,0,0,0
+Hawaii,15,HI,040US15,3,0,0,0,0,0,0,0,0,0
+Idaho,16,ID,040US16,3,0,0,0,0,0,0,0,0,0
+Illinois,17,IL,040US17,3,0,0,0,0,0,0,0,0,0
+Indiana,18,IN,040US18,1,1,1,0,1,0,0,0,1,4
+Iowa,19,IA,040US19,3,0,0,0,0,0,0,0,0,0
+Kansas,20,KS,040US20,1,0,0,0,0,0,0,0,0,0
+Kentucky,21,KY,040US21,1,1,1,0,1,1,1,1,1,7
+Louisiana,22,LA,040US22,2,0,0,0,0,0,0,0,0,0
+Maine,23,ME,040US23,2,0,0,0,1,0,0,0,1,2
+Maryland,24,MD,040US24,3,0,0,0,0,0,0,0,0,0
+Massachusetts,25,MA,040US25,3,1,1,0,1,0,0,0,1,4
+Michigan,26,MI,040US26,3,0,0,0,0,0,0,0,0,0
+Minnesota,27,MN,040US27,3,0,0,0,0,0,0,0,0,0
+Mississippi,28,MS,040US28,2,0,0,0,0,0,0,0,0,0
+Missouri,29,MO,040US29,1,0,0,0,0,0,0,0,0,0
+Montana,30,MT,040US30,3,0,0,0,0,0,0,0,0,0
+Nebraska,31,NE,040US31,2,0,0,0,0,0,0,0,0,0
+Nevada,32,NV,040US32,3,0,0,0,0,0,0,0,0,0
+New Hampshire,33,NH,040US33,2,0,0,0,0,0,0,0,0,0
+New Jersey,34,NJ,040US34,2,1,1,1,1,0,0,0,0,4
+New Mexico,35,NM,040US35,2,0,0,0,0,0,0,0,0,0
+New York,36,NY,040US36,1,1,1,0,1,0,0,0,1,4
+North Carolina,37,NC,040US37,1,0,0,0,0,0,0,0,0,0
+North Dakota,38,ND,040US38,3,0,0,0,0,0,0,0,0,0
+Ohio,39,OH,040US39,1,1,1,0,1,1,1,1,1,7
+Oklahoma,40,OK,040US40,3,0,0,0,0,0,0,0,0,0
+Oregon,41,OR,040US41,3,0,0,0,0,0,0,0,0,0
+Pennsylvania,42,PA,040US42,1,0,0,0,0,0,0,0,0,0
+Rhode Island,44,RI,040US44,3,0,0,0,0,0,0,0,0,0
+South Carolina,45,SC,040US45,2,0,0,0,0,0,0,0,0,0
+South Dakota,46,SD,040US46,3,0,0,0,0,0,0,0,0,0
+Tennessee,47,TN,040US47,1,1,1,1,1,1,1,1,1,8
+Texas,48,TX,040US48,3,0,0,0,0,0,0,0,0,0
+Utah,49,UT,040US49,3,0,0,0,0,0,0,0,0,0
+Vermont,50,VT,040US50,3,0,0,0,0,0,0,0,1,1
+Virginia,51,VA,040US51,2,1,1,0,1,1,1,1,0,6
+Washington,53,WA,040US53,3,0,0,0,0,0,0,0,0,0
+West Virginia,54,WV,040US54,1,1,1,1,1,1,1,1,1,8
+Wisconsin,55,WI,040US55,3,1,1,0,1,1,1,1,1,7
+Wyoming,56,WY,040US56,0,0,0,0,0,0,0,0,0,0
