@@ -18,6 +18,7 @@ medicaid.df$HEROP_State <- str_sub(medicaid.df$HEROP_ID, 6,7)
 head(medicaid.df)
 
 medicaid.df1 <- select(medicaid.df,HEROP_State,MedPolProp)
+head(medicaid.df1)
 
 # Insurance Access
 ins <- read.csv("../indicators_raw/insurance_tract23.csv")
@@ -36,40 +37,49 @@ summary(pov)
 
 # Change directionality
 pov$PovPSc <- pov$PovP * (-1)
+head(pov)
 
+#############
 ## Merging
-loud.stage4.df <- merge(pov, priv.ins, by="HEROP_ID")
-head(loud.stage4.df)
-
-## 
-loud.stage4.df$HEROP_State <- str_sub(loud.stage4.df$HEROP_ID, 6,7)
-head(loud.stage4.df)
-
-loud.stage4.df2 <- merge(loud.stage4.df, medicaid.df1, by="HEROP_State")
-head(loud.stage4.df2)
-
-loud.stage4.df3 <- select(loud.stage4.df2,HEROP_ID,PovP,PovPSc,PrivateInsP,MedPolProp)
-
-### Stage 4 Prep
-loud.stage4.df3$PovPPL <- percent_rank(loud.stage4.df3$PovPSc)
-loud.stage4.df3$PrivateInsPPL <- percent_rank(loud.stage4.df3$PrivateInsP)
-loud.stage4.df3$MedPolPropPL <- percent_rank(loud.stage4.df3$MedPolProp)
-head(loud.stage4.df3)
-
-# Equally Weighted
-loud.stage4.df3$Stage4 <- (loud.stage4.df3$PovPPL + loud.stage4.df3$PrivateInsPPL+
-                            loud.stage4.df3$MedPolPropPL)/3
-hist(loud.stage4.df3$Stage4)
-head(loud.stage4.df3)
-
-save(loud.stage4.df3,  file = "../data_final/loud_stage4.RData")
-
-write.csv(loud.stage4.df3, "../data_final/loud_stage4.csv", row.names = FALSE)
+#############
 
 library(sf)
-tract.sf <- st_read("https://herop-geodata.s3.us-east-2.amazonaws.com/census/tract-2010-500k.geojson")
-loud.stage4.sf <- left_join(tract.sf,loud.stage4.df3, by="HEROP_ID")
-st_write(loud.stage4.sf, "../data_final/loud.stage4.geojson")
+tract.sf <- st_read("../indicators_raw/tract-continental.geojson")
+head(tract.sf)
+
+## Limit to US-continent only
+loud.stage4.1 <- left_join(tract.sf,pov, by="HEROP_ID")
+loud.stage4.2 <- left_join(loud.stage4.1, priv.ins, by="HEROP_ID")
+head(loud.stage4.2) #83507
+
+## 
+loud.stage4.2$HEROP_State <- str_sub(loud.stage4.2$HEROP_ID, 6,7)
+head(loud.stage4.2)
+
+loud.stage4.3 <- left_join(loud.stage4.2, medicaid.df1, by="HEROP_State")
+head(loud.stage4.3)
+
+
+### Stage 4 Prep
+loud.stage4.3$PovPPL <- percent_rank(loud.stage4.3$PovPSc)
+loud.stage4.3$PrivateInsPPL <- percent_rank(loud.stage4.3$PrivateInsP)
+loud.stage4.3$MedPolPropPPL <- percent_rank(loud.stage4.3$MedPolProp)
+head(loud.stage4.3)
+
+# Equally Weighted
+loud.stage4.3$Stage4 <- (loud.stage4.3$PovPPL + loud.stage4.3$PrivateInsPPL+
+                             loud.stage4.3$MedPolPropPPL)/3
+hist(loud.stage4.3$Stage4)
+head(loud.stage4.3)
+
+### Write Data
+
+st_write(loud.stage1, "../data_final/loud.stage1.geojson")
+
+#save(loud.stage5.df2,  file = "../data_final/loud_stage4-5.RData")
+loud.stage1.df <- st_drop_geometry(loud.stage1)
+
+write.csv(loud.stage1.df, "../data_final/loud_stage1.csv", row.names = FALSE)
 
 
 ####################################################################
@@ -132,12 +142,12 @@ head(loud.stage5.us2) #82628
 
 
 ### Stage 5 Prep
-loud.stage5.us2$supportivePPL <- percent_rank(loud.stage5.us2$supportiveSc)
-loud.stage5.us2$HistRstMMTPPL <- percent_rank(loud.stage5.us2$HistRstMMTSc)
+loud.stage5.us2$supportiveScPPL <- percent_rank(loud.stage5.us2$supportiveSc)
+loud.stage5.us2$HistRstMMTPPL <- percent_rank(loud.stage5.us2$HistRstMMTOrd)
 head(loud.stage5.us2)
 
 # Equally Weighted
-loud.stage5.us2$Stage5 <- (loud.stage5.us2$supportivePPL + loud.stage5.us2$HistRstMMTPPL)/2
+loud.stage5.us2$Stage5 <- (loud.stage5.us2$supportiveScPPL + loud.stage5.us2$HistRstMMTPPL)/2
 hist(loud.stage5.us2$Stage5)
 head(loud.stage5.us2)
 
