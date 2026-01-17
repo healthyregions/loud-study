@@ -74,12 +74,12 @@ head(loud.stage4.3)
 
 ### Write Data
 
-st_write(loud.stage1, "../data_final/loud.stage1.geojson")
+st_write(loud.stage4.3, "../data_final/loud.stage4.geojson")
 
 #save(loud.stage5.df2,  file = "../data_final/loud_stage4-5.RData")
-loud.stage1.df <- st_drop_geometry(loud.stage1)
+loud.stage4.3 <- st_drop_geometry(loud.stage4.3)
 
-write.csv(loud.stage1.df, "../data_final/loud_stage1.csv", row.names = FALSE)
+write.csv(loud.stage4.3, "../data_final/loud_stage4.csv", row.names = FALSE)
 
 
 ####################################################################

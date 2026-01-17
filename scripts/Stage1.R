@@ -1,5 +1,5 @@
 library(tidyverse)
-setwd("~/Code/loud-study")
+setwd("~/Code/loud-study/scripts")
 
 ############
 # Read in Data 
