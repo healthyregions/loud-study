@@ -1,52 +1,52 @@
-GEOID,STUSPS,NAME,HEROP_ID,HistRstMMT
-"35",NM,New Mexico,"040US35",2
-"46",SD,South Dakota,"040US46",3
-"06",CA,California,"040US06",1
-"21",KY,Kentucky,"040US21",1
-"01",AL,Alabama,"040US01",2
-"13",GA,Georgia,"040US13",2
-"05",AR,Arkansas,"040US05",2
-"42",PA,Pennsylvania,"040US42",1
-"29",MO,Missouri,"040US29",1
-"08",CO,Colorado,"040US08",1
-"49",UT,Utah,"040US49",3
-"40",OK,Oklahoma,"040US40",3
-"47",TN,Tennessee,"040US47",1
-"56",WY,Wyoming,"040US56",0
-"36",NY,New York,"040US36",1
-"18",IN,Indiana,"040US18",1
-"20",KS,Kansas,"040US20",1
-"16",ID,Idaho,"040US16",3
-"02",AK,Alaska,"040US02",2
-"32",NV,Nevada,"040US32",3
-"17",IL,Illinois,"040US17",3
-"50",VT,Vermont,"040US50",3
-"34",NJ,New Jersey,"040US34",2
-"38",ND,North Dakota,"040US38",3
-"19",IA,Iowa,"040US19",3
-"45",SC,South Carolina,"040US45",2
-"04",AZ,Arizona,"040US04",3
-"10",DE,Delaware,"040US10",3
-"11",DC,District of Columbia,"040US11",3
-"09",CT,Connecticut,"040US09",2
-"33",NH,New Hampshire,"040US33",2
-"31",NE,Nebraska,"040US31",2
-"53",WA,Washington,"040US53",3
-"48",TX,Texas,"040US48",3
-"39",OH,Ohio,"040US39",1
-"55",WI,Wisconsin,"040US55",3
-"41",OR,Oregon,"040US41",3
-"28",MS,Mississippi,"040US28",2
-"37",NC,North Carolina,"040US37",1
-"51",VA,Virginia,"040US51",2
-"54",WV,West Virginia,"040US54",1
-"22",LA,Louisiana,"040US22",2
-"26",MI,Michigan,"040US26",3
-"25",MA,Massachusetts,"040US25",3
-"12",FL,Florida,"040US12",1
-"30",MT,Montana,"040US30",3
-"27",MN,Minnesota,"040US27",3
-"24",MD,Maryland,"040US24",3
-"23",ME,Maine,"040US23",2
-"15",HI,Hawaii,"040US15",3
-"44",RI,Rhode Island,"040US44",3
+GEOID,STUSPS,NAME,HEROP_ID,HistRstMMT,HistRstMMTOrd
+56,WY,Wyoming,040US56,0,0
+35,NM,New Mexico,040US35,2,1
+01,AL,Alabama,040US01,2,1
+13,GA,Georgia,040US13,2,1
+05,AR,Arkansas,040US05,2,1
+02,AK,Alaska,040US02,2,1
+34,NJ,New Jersey,040US34,2,1
+45,SC,South Carolina,040US45,2,1
+09,CT,Connecticut,040US09,2,1
+33,NH,New Hampshire,040US33,2,1
+31,NE,Nebraska,040US31,2,1
+28,MS,Mississippi,040US28,2,1
+51,VA,Virginia,040US51,2,1
+22,LA,Louisiana,040US22,2,1
+23,ME,Maine,040US23,2,1
+06,CA,California,040US06,1,2
+21,KY,Kentucky,040US21,1,2
+42,PA,Pennsylvania,040US42,1,2
+29,MO,Missouri,040US29,1,2
+08,CO,Colorado,040US08,1,2
+47,TN,Tennessee,040US47,1,2
+36,NY,New York,040US36,1,2
+18,IN,Indiana,040US18,1,2
+20,KS,Kansas,040US20,1,2
+39,OH,Ohio,040US39,1,2
+37,NC,North Carolina,040US37,1,2
+54,WV,West Virginia,040US54,1,2
+12,FL,Florida,040US12,1,2
+46,SD,South Dakota,040US46,3,3
+49,UT,Utah,040US49,3,3
+40,OK,Oklahoma,040US40,3,3
+16,ID,Idaho,040US16,3,3
+32,NV,Nevada,040US32,3,3
+17,IL,Illinois,040US17,3,3
+50,VT,Vermont,040US50,3,3
+38,ND,North Dakota,040US38,3,3
+19,IA,Iowa,040US19,3,3
+04,AZ,Arizona,040US04,3,3
+10,DE,Delaware,040US10,3,3
+11,DC,District of Columbia,040US11,3,3
+53,WA,Washington,040US53,3,3
+48,TX,Texas,040US48,3,3
+55,WI,Wisconsin,040US55,3,3
+41,OR,Oregon,040US41,3,3
+26,MI,Michigan,040US26,3,3
+25,MA,Massachusetts,040US25,3,3
+30,MT,Montana,040US30,3,3
+27,MN,Minnesota,040US27,3,3
+24,MD,Maryland,040US24,3,3
+15,HI,Hawaii,040US15,3,3
+44,RI,Rhode Island,040US44,3,3
