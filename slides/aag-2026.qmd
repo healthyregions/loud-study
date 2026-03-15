@@ -1,0 +1,31 @@
+---
+format:
+  revealjs: 
+    theme: simple
+editor: visual
+bibliography: references.bib
+---
+
+## A Human-Centered & Harmonized Spatial Data Science Approach for Measuring Multidimensional Access to Medications for Opioid Use Disorder
+
+Marynia Kolak\*, Paul Joudrey, Basmattee Boodram, Leslie Williams, Sam Friedman, Christina Mair
+
+<br>
+
+###### American Association of Geographers \| San Franciscso 2026
+
+## Background
+
+-   Access to medications for Opioid Use Disorder (OUD) is crucial for reducing overdoses, premature deaths, and other harms for persons who use drug (PWUD).
+
+-   Medications like methadone and buprenorphine serve as evidence based options that can shift outcomes and save lives; but majority of persons w/OUD don’t access them
+
+-   Structural barriers (e.g. policy variation, stigma) compound challenges like the lack of providers for diagnosing needs and/or distributing medications effectively [@smith2016]
+
+## Determining Need
+
+### test
+
+-   test
+
+## References
