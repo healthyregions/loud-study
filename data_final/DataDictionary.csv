@@ -1,0 +1,110 @@
+HEROP_ID,HEROP ID - Tract ID (to Census 2020)
+EngProf,Limited to No English Proficiency %
+LimEngProfSc,Limited to No English Proficiency - Scaled Direction
+CompHhldsP,Computers per Hhld %
+BbndInternetP,Broadband Internet Access per Hhld %
+IntInd,Internet Index - Accounts for both Computers per Hhld & Bbnd Internet
+LibPerCap,Libraries per Capita
+RlgPerCap,Religious Institutions per Capita
+LngTermP,Long Term Residency (20 yrs or more) %
+SocCapInd,"Social Capital Index - Accounts for Libraries, Religioius Inst, Long Term Residency"
+LibPer10k,"Libraries per 10,000 persons "
+RlgPer10k,"Religious Institutions per Capita per 10,000 persons "
+HEROP_County.x,HEROP ID - County ID (to Census 2020)
+RspRt,^ Census Response Rate (County-Level)
+IntIndPPL,Internet Index Percentile Rank
+CenRspRtPPL,Census Response Rate Percentile Rank
+SocCapIndPPL,Social Capital Index Percentile Rank
+LimEngProfPPL,Limited to No English Proficiency Percentile Rank
+Stage1,Stage 1 Index (Sums Percenile Ranks)
+Stage1W,Stage 1 Index Weighted by Advisory
+Stage1PC,Stage 1 Index Scaled (Experimental)
+Stage1Cat,Stage 1 Quantile Category 
+MOUDType,
+abst2,
+abst2Sc,
+ssp2,
+ssp2Sc,
+pastMethd10,
+pastMethd10Sc,
+pastMethd10ScPPL,
+ssp2ScPPL,
+abstPPL,
+MOUDTypePPL,
+Stage2,
+Stage2Cat,
+HEROP_County.y,
+HEROP_State.x,
+DisbP,
+DisbPSc,
+FqhcTmDr2,
+FqhcTmDr2Sc,
+NoVehHHld,
+CommTransit,
+CommWalking,
+NoVehHHldSc,
+CommTransitSc,
+CommWalkingSc,
+MetTmDr2,
+BupTmDr2,
+NaltTmDr2,
+MetTmDr2Sc,
+BupTmDr2Sc,
+NaltTmDr2Sc,
+PharmTmDr2,
+PharmTmDr2Sc,
+BupPolRst,
+BupPolRstSc,
+OdMortRtAv,
+OdMortRtAvSc,
+DisbPScPPL,
+FqhcTmDr2ScPPL,
+NoVehHHldScPPL,
+MetTmDr2ScPPL,
+BupTmDr2ScPPL,
+NaltTmDr2ScPPL,
+PharmTmDr2ScPPL,
+OdMortRtAvScPPL,
+BupPolRstScPPL,
+Stage3,
+Stage3Cat,
+Stage3PC,
+PovP,
+PovPSc,
+PrivateInsP,
+HEROP_State.y,
+MedPolProp,
+PovPPL,
+PrivateInsPPL,
+MedPolPropPPL,
+Stage4,
+Stage4Cat,
+Stage5PC,
+HEROP_State,
+supportive,
+supportiveSc,
+HistRstMMTOrd,
+supportiveScPPL,
+HistRstMMTPPL,
+Stage5,
+Stage5Cat,
+AccessScore,
+AccessScoreSc,
+PC1,
+PC2,
+PC3,
+PC4,
+PC5,
+PC6,
+PC7,
+PC8,
+PC9,
+CL,
+PC1f,
+PC2f,
+PC3f,
+PC4f,
+PC5f,
+PC6f,
+PC7f,
+PC8f,
