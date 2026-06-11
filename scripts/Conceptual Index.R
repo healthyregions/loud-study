@@ -7,11 +7,10 @@ library(readr)
 library(gtsummary)
 library(stringr)
 
-geo <- st_read("./data_final/loud-cleaned.geojson")
+geo <- st_read("../data_final/loud-cleaned.geojson")
 df <- geo %>% st_drop_geometry()
 
-# for data dict; upload to github and link as above?
-dict <- read_csv("DataDictionary.csv", show_col_types = FALSE)
+dict <- read_csv("../data_final/DataDictionary.csv", show_col_types = FALSE)
 
 # conceptual index raw measures
 raw_dict <- dict %>%
@@ -87,7 +86,7 @@ final_tbl <- tbl_merge(
   modify_caption("**Summary statistics for initial draft of conceptual index**")
 
 final_tbl
-
-final_tbl %>%
-  as_gt() %>%
-  gtsave("conceptual_index_summary.html")
+# 
+# final_tbl %>%
+#   as_gt() %>%
+#   gtsave("conceptual_index_summary.html")
