@@ -91,3 +91,23 @@ pc_tables[["PC6f"]]
 pc_tables[["PC7f"]]
 pc_tables[["PC8f"]]
 pc_tables[["PC9f"]]
+
+# following code used to generate images
+# for (pc_name in names(pc_tables)) {
+#   
+#   tbl <- pc_tables[[pc_name]]
+#   
+#   if (!is.null(tbl)) {
+#     
+#     file_name <- paste0(pc_name, "_quantile_summary.png")
+#     
+#     tbl %>%
+#       as_gt() %>%
+#       gtsave(
+#         filename = file_name,
+#         vwidth = 3000,
+#         vheight = 1400,
+#         zoom = 2
+#       )
+#   }
+# }

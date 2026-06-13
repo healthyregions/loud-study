@@ -86,7 +86,10 @@ final_tbl <- tbl_merge(
   modify_caption("**Summary statistics for initial draft of conceptual index**")
 
 final_tbl
-# 
+
+# following code used to generate images
 # final_tbl %>%
 #   as_gt() %>%
-#   gtsave("conceptual_index_summary.html")
+#   gtsave(
+#     filename = "conceptual_index_summary.png"
+#   )
