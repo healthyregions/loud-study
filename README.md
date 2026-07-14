@@ -1,6 +1,6 @@
 # loud-study
 Research &amp; Analytics used for the LOUD Study (MPI: Joudrey &amp; Kolak)
-Student Research Assistant Support: Sam Wang (2026)
+Student Research Assistant Support: Sam Wang (2026).
 
 ## Overview
 This repo stores data and analyses to generate a multivariate access index to localize opioid use response in the U.S., incorporating both conceptually-driven and data-driven approaches.
