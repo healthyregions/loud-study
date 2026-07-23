@@ -11,3 +11,5 @@ scripts/.Rhistory
 scripts/.Rhistory
 data_final/loud-cleaned.geojson
 scripts/test-file.R
+indicators_raw/loud-cleaned.geojson
+scripts/.RData

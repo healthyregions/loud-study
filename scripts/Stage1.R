@@ -1,3 +1,6 @@
+# M. Kolak - original script
+# Last updated: 7/23/26
+
 library(tidyverse)
 setwd("~/Code/loud-study/scripts")
 
@@ -12,6 +15,7 @@ internet.loud <- internet %>%
   select(HEROP_ID,CompHhldsP,BbndInternetP)
 
 head(internet.loud) #84400
+dim(internet.loud)
 
 internet.loud <- select(internet.loud,HEROP_ID,CompHhldsP,BbndInternetP)
 head(internet.loud)
@@ -46,8 +50,11 @@ head(socialcapital.loud)
 #### Limited English Proficiency
 
 ## OEPS 2023 data package -- too large to store in Git, reading locally
-oeps <- read.csv("~/Code/tract.csv")
+#oeps <- read.csv("~/Code/tract.csv")
+oeps <- read.csv("https://github.com/healthyregions/oeps/raw/refs/heads/main/backend/oeps/data/tables/tract-2023.csv")
+
 head(oeps)
+glimpse(oeps)
 
 english <- select(oeps,HEROP_ID,EngProf)
 head(english)
@@ -82,7 +89,7 @@ head(loud.stage1.3)
 ## Merge with Geographic Boundaries, Continent only
 
 library(sf)
-tract.sf <- st_read("../indicators_raw/tract-continental.geojson")
+tract.sf <- st_read("../indicators_raw/loud-cleaned.geojson")
 head(tract.sf)
 
 ## Limit to US-continent only
