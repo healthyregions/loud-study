@@ -1,5 +1,10 @@
 # M. Kolak - original script
-# Last updated: 7/23/26
+# Last updated: 7/27/26 by Hilary - getting familiar, thinking of ideas
+
+## Hilary - Two main things to consider:
+### Flipping directionality of English proficiency
+### Weighting by advisory board calculation
+
 
 library(tidyverse)
 setwd("~/Code/loud-study/scripts")
@@ -23,6 +28,7 @@ head(internet.loud)
 internet.loud$IntInd <- (scale(internet.loud$CompHhldsP)+ scale(internet.loud$BbndInternetP))/2
 head(internet.loud)
 
+
 ### Census Response Rate ###
 CensusRate.county <- read.csv("../indicators_raw/RspRt_county_2023.csv")
 head(CensusRate.county)
@@ -37,7 +43,7 @@ head(censusRate.loud)
 ### Social Capital ###
 
 social.capital <- read.csv("../indicators_raw/Social_Capital_Measures_2023.csv")
-head(social.capital)
+head(social.capital) ## Hilary - I don't see the "MedHsgTen" variable in the data dictionary
 
 socialcapital.loud <- social.capital %>%
   select(HEROP_ID,LibPerCap,RlgPerCap, LngTermP,SocCapInd) 
@@ -57,15 +63,16 @@ head(oeps)
 glimpse(oeps)
 
 english <- select(oeps,HEROP_ID,EngProf)
-head(english)
+head(english) ## at this point, low value == low vulnerability (low % of ppl w/ limited/no English), high value == high vulnerability (high % of ppl w/ limited/no English)
 summary(english)
 
 english$EngProf <- english$EngProf * 100
 head(english)
 
 ## Flip directionality as higher value == higher vulnerability (lower English proficiency)
-english$LimEngProfSc <- english$EngProf * (-1)
+english$LimEngProfSc <- english$EngProf * (-1) ## Hilary - instead of multiplying by -1, shouldn't we just do 1 minus EngProf. This way we have positive values where high values == low vulnerability to match the other variables.
 head(english)
+## Hilary - there's something weird about multiplying by -1 that I think is affecting the later rescaling and index calculation...
 
 english.loud <- english
 head(english)
@@ -115,10 +122,17 @@ head(loud.stage1)
 
 # Weighted by Advisory
 
+# loud.stage1$Stage1W <- ((.613*loud.stage1$IntIndPPL) + 
+#                             (.380*loud.stage1$CenRspRtPPL) +
+#                             (.761*loud.stage1$SocCapIndPPL) + 
+#                             (.716*loud.stage1$LimEngProfPPL) )/4
+
+## Hilary - I think we do want to divide by the sum of the weights because dividing by 4 will make the weighted index smaller than it should be
 loud.stage1$Stage1W <- ((.613*loud.stage1$IntIndPPL) + 
-                            (.380*loud.stage1$CenRspRtPPL) +
-                            (.761*loud.stage1$SocCapIndPPL) + 
-                            (.716*loud.stage1$LimEngProfPPL) )/4
+                          (.380*loud.stage1$CenRspRtPPL) +
+                          (.761*loud.stage1$SocCapIndPPL) + 
+                          (.716*loud.stage1$LimEngProfPPL) )/ (.613 + .38 + .761 + .716)
+
 hist(loud.stage1$Stage1W)
 head(loud.stage1)
 
