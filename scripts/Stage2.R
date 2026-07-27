@@ -1,3 +1,9 @@
+# M. Kolak - original script
+# Last updated: 7/27/26 by Hilary - getting familiar, thinking of ideas
+
+## Hilary - need to check on directionality for all variables. 
+## In Stage 1 high, values == low vulnerability, so don't we want the same for the other stages?
+
 library(tidyverse)
 setwd("~/Code/loud-study/scripts")
 
@@ -25,8 +31,9 @@ pastMethdn <- pastMethdn %>%
   rename(pastMethd10 = minutes2010)
 head(pastMethdn)
 
-## Flip directionality as higher value == higher vulnerability (lower English proficiency)
-pastMethdn$pastMethd10Sc <- pastMethdn$pastMethd10*(-1)
+## Flip directionality as higher value == higher vulnerability
+## Hilary: Flagging this... isn't this already high values == low vulnerability which matches the scale of stage 1 measures? So do we need to do this step?
+pastMethdn$pastMethd10Sc <- pastMethdn$pastMethd10*(-1) 
 
 pastMethdn.2 <- pastMethdn %>%
   mutate(across(c(pastMethd10Sc), ~ replace_na(., -999)))
@@ -62,6 +69,7 @@ dim(MOUDType_wOTP) #85187
 MOUDType.loud <- select(MOUDType_wOTP, HEROP_ID,MOUDType)
 head(MOUDType.loud)
 
+
 ############
 ### Availability of HRSOs/SSPs ###
 ssp <- read.csv("../indicators_raw/ssp_2025.csv")
@@ -75,7 +83,8 @@ ssp.df1 <- ssp.df %>%
 head(ssp.df1)
 dim(ssp.df1) # 85187
 
-## Flip directionality as higher value == higher vulnerability (lower English proficiency)
+## Flip directionality as higher value == higher vulnerability
+## Hilary: I think this one does need to be flipped but would suggest 1 minus ssp2 to get positive values instead
 ssp.df1$ssp2Sc <- ssp.df1$ssp2 * (-1)
 head(ssp.df1)
 
@@ -84,6 +93,7 @@ ssp.df2 <- ssp.df1 %>%
 head(ssp.df2)
 
 ssp.loud <- ssp.df2
+
 
 ############
 #### Spatial availability of Abstinence-based approach
@@ -98,13 +108,10 @@ abstinence.df1 <- abstinence.df %>%
 head(abstinence.df1)
 dim(abstinence.df1) # 85187
 
-## Flip directionality as higher value == higher vulnerability (lower English proficiency)
-#abstinence.df1$abst2Sc <- abstinence.df1$abst2 * (-1)
-#head(abstinence.df1)
-
-#abstinence.df2 <- abstinence.df1 %>%
-#  mutate(across(c(abst2Sc), ~ replace_na(., -999)))
-#head(abstinence.df2)
+## Flip directionality as higher value == higher vulnerability 
+## Hilary: same as SSP variable - I think we do want to flip so high values = low vulnerability
+abstinence.df1$abst2Sc <- abstinence.df1$abst2 * (-1)
+head(abstinence.df1)
 
 abstinence.df2 <- abstinence.df1 %>%
   mutate(across(c(abst2), ~ replace_na(., -999)))
@@ -113,6 +120,7 @@ head(abstinence.df2)
 summary(abstinence.df2)
 
 abs.loud <- abstinence.df2
+
 
 ############
 # Merge stage 2 measures 
@@ -131,7 +139,7 @@ head(loud.stage2.3)
 ## Merge with Geographic Boundaries, Continent only
 
 library(sf)
-tract.sf <- st_read("../indicators_raw/tract-continental.geojson")
+tract.sf <- st_read("../indicators_raw/tract-continental.geojson") ## Hilary: couldn't find where this file is stored - but is it identical to loud-cleaned.geojson?
 head(tract.sf)
 
 ## Limit to US-continent only
@@ -142,7 +150,7 @@ summary(loud.stage2.3.us)
 
 loud.stage2 <- loud.stage2.3.us
 
-### Stage 1 Prep
+### Stage 2 Prep
 loud.stage2$pastMethd10ScPPL <- percent_rank(loud.stage2$pastMethd10Sc)
 loud.stage2$ssp2ScPPL <- percent_rank(loud.stage2$ssp2Sc)
 loud.stage2$abstPPL <- percent_rank(loud.stage2$abst2)
