@@ -1,3 +1,6 @@
+# M. Kolak - original script
+# Last updated: 7/28/26 by Hilary - getting familiar, thinking of ideas
+
 setwd("~/Code/loud-study/scripts")
 
 library(tidyverse)
@@ -7,11 +10,18 @@ library(tidyverse)
 ############
 
 ## Transportation behaviors
+## Hilary: Maybe I'm thinking of this wrong or am not as well read on the topic, but did you consider just using % commuters driving? 
+## What about existence of public transit via # of bus stops/subway stations (given data availability)? 
+## I think I'm just not convinced that these 3 variables are capturing vulnerability in the right way. 
+## For example, I agree that high % no vehicle means high vulnerability, but if that area also has high access to public transportation, maybe they aren't as vulnerable as places without public transportation.
+## But I see you didn't include CommTransit and CommWalking in the final calculation, which I think makes sense. But my suggestion is to potentially include some measure of transit availability.
+
 commuting <- read.csv("../indicators_raw/commuting_tract23.csv")
 head(commuting)
 summary(commuting) 
 
-## Flip directionality as higher value == higher vulnerability (lower English proficiency)
+## Flip directionality as higher value == higher vulnerability 
+## Hilary: Same comment as before about flipping these to make them positive values
 commuting$NoVehHHldSc <- commuting$NoVehHHld*(-1)
 commuting$CommTransitSc <- commuting$CommTransit*(-1)
 commuting$CommWalkingSc <- commuting$CommWalking*(-1)
@@ -20,13 +30,15 @@ head(commuting)
 commuting.loud <- select(commuting, HEROP_ID, NoVehHHld,CommTransit,CommWalking,NoVehHHldSc,CommTransitSc,CommWalkingSc)
 head(commuting.loud)
 
+
 ## Disability
 oeps <- read.csv("~/Code/tract.csv")
+oeps <- read.csv("https://github.com/healthyregions/oeps/raw/refs/heads/main/backend/oeps/data/tables/tract-2023.csv") ## I'm assuming this is the same thing as tract.csv
 head(oeps)
 
 disability<- select(oeps,HEROP_ID,DisbP)
 
-## Flip directionality as higher value == higher vulnerability (lower English proficiency)
+## Flip directionality as higher value == higher vulnerability
 disability$DisbPSc <- disability$DisbP * (-1)
 head(disability)
 
@@ -44,7 +56,7 @@ head(moud.2)
 moud <- select(moud.2, HEROP_ID,MetTmDr2, BupTmDr2,NaltTmDr2)
 head(moud)
 
-## Flip directionality as higher value == higher vulnerability (lower English proficiency)
+## Flip directionality as higher value == higher vulnerability
 moud$MetTmDr2Sc <- moud$MetTmDr2 * (-1)
 moud$BupTmDr2Sc <- moud$BupTmDr2 * (-1)
 moud$NaltTmDr2Sc <- moud$NaltTmDr2 * (-1)
@@ -85,7 +97,7 @@ head(od.mort)
 od.mort.loud <- select(od.mort,HEROP_County,OdMortRtAv)
 head(od.mort.loud)
 
-## Flip directionality as higher value == higher vulnerability (lower English proficiency)
+## Flip directionality as higher value == higher vulnerability 
 od.mort.loud$OdMortRtAvSc <- od.mort.loud$OdMortRtAv * (-1)
 head(od.mort.loud)
 
