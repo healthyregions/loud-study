@@ -32,8 +32,7 @@ pastMethdn <- pastMethdn %>%
 head(pastMethdn)
 
 ## Flip directionality as higher value == higher vulnerability
-## Hilary: Flagging this... isn't this already high values == low vulnerability which matches the scale of stage 1 measures? So do we need to do this step?
-pastMethdn$pastMethd10Sc <- pastMethdn$pastMethd10*(-1) 
+pastMethdn$pastMethd10Sc <- pastMethdn$pastMethd10*(-1) ## would suggest 1 minus pastMethd10 to get positive values instead
 
 pastMethdn.2 <- pastMethdn %>%
   mutate(across(c(pastMethd10Sc), ~ replace_na(., -999)))
@@ -109,7 +108,7 @@ head(abstinence.df1)
 dim(abstinence.df1) # 85187
 
 ## Flip directionality as higher value == higher vulnerability 
-## Hilary: same as SSP variable - I think we do want to flip so high values = low vulnerability
+## Hilary: same as SSP variable - I think we do want to flip so high values = low vulnerability - this wasn't done previouslys
 abstinence.df1$abst2Sc <- abstinence.df1$abst2 * (-1)
 head(abstinence.df1)
 
