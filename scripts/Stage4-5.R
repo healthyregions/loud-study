@@ -1,3 +1,6 @@
+# M. Kolak - original script
+# Last updated: 7/28/26 by Hilary - getting familiar, thinking of ideas
+
 library(tidyverse)
 setwd("~/Code/oeps2/data_to_merge/loud")
 
@@ -29,6 +32,7 @@ head(priv.ins)
 # Poverty
 # OEPS 2023 data package -- too large to store in Git, reading locally
 oeps <- read.csv("~/Code/tract.csv")
+oeps <- read.csv("https://github.com/healthyregions/oeps/raw/refs/heads/main/backend/oeps/data/tables/tract-2023.csv") ## I'm assuming this is the same thing as tract.csv
 head(oeps)
 
 pov <- select(oeps,HEROP_ID,PovP)
@@ -89,7 +93,6 @@ write.csv(loud.stage4.3, "../data_final/loud_stage4.csv", row.names = FALSE)
 # Availability of supportive services 
 
 # Typology of laws restricting access to methadone
-
 histRstMMT <- read.csv("../indicators_raw/histRstMMT_state23.csv")
 head(histRstMMT)
 histRstMMT.df <- select(histRstMMT,HEROP_ID,HistRstMMTOrd)
