@@ -1,10 +1,5 @@
 # M. Kolak - original script
-# Last updated: 7/27/26 by Hilary - getting familiar, thinking of ideas
-
-## Hilary - Two main things to consider:
-### Flipping directionality of English proficiency
-### Weighting by advisory board calculation
-
+# Last updated: 9/16/26 by Hilary
 
 library(tidyverse)
 setwd("~/Code/loud-study/scripts")
@@ -43,7 +38,7 @@ head(censusRate.loud)
 ### Social Capital ###
 
 social.capital <- read.csv("../indicators_raw/Social_Capital_Measures_2023.csv")
-head(social.capital) ## Hilary - I don't see the "MedHsgTen" variable in the data dictionary
+head(social.capital)
 
 socialcapital.loud <- social.capital %>%
   select(HEROP_ID,LibPerCap,RlgPerCap, LngTermP,SocCapInd) 
@@ -70,16 +65,15 @@ english$EngProf <- english$EngProf * 100
 head(english)
 
 ## Flip directionality as higher value == higher vulnerability (lower English proficiency)
-english$LimEngProfSc <- english$EngProf * (-1) ## Hilary - instead of multiplying by -1, shouldn't we just do 1 minus EngProf. This way we have positive values where high values == low vulnerability to match the other variables.
+english$LimEngProfSc <- english$EngProf * (-1) 
 head(english)
-## Hilary - there's something weird about multiplying by -1 that I think is affecting the later rescaling and index calculation...
 
 english.loud <- english
 head(english)
 
 
 ############
-# Merge stage 3 measures 
+# Merge stage 1 measures 
 ############
 
 loud.stage1.1 <- left_join(english.loud, internet.loud, by="HEROP_ID")
@@ -96,7 +90,8 @@ head(loud.stage1.3)
 ## Merge with Geographic Boundaries, Continent only
 
 library(sf)
-tract.sf <- st_read("../indicators_raw/loud-cleaned.geojson")
+tract.sf <- st_read("../indicators_raw/loud-cleaned.geojson") %>% 
+  select("HEROP_ID")
 head(tract.sf)
 
 ## Limit to US-continent only
@@ -122,12 +117,6 @@ head(loud.stage1)
 
 # Weighted by Advisory
 
-# loud.stage1$Stage1W <- ((.613*loud.stage1$IntIndPPL) + 
-#                             (.380*loud.stage1$CenRspRtPPL) +
-#                             (.761*loud.stage1$SocCapIndPPL) + 
-#                             (.716*loud.stage1$LimEngProfPPL) )/4
-
-## Hilary - I think we do want to divide by the sum of the weights because dividing by 4 will make the weighted index smaller than it should be
 loud.stage1$Stage1W <- ((.613*loud.stage1$IntIndPPL) + 
                           (.380*loud.stage1$CenRspRtPPL) +
                           (.761*loud.stage1$SocCapIndPPL) + 
@@ -138,9 +127,8 @@ head(loud.stage1)
 
 ### Write Data
 
-st_write(loud.stage1, "../data_final/loud.stage1.geojson")
+st_write(loud.stage1, "../data_final_09-16-26/loud.stage1.geojson")
 
-#save(loud.stage5.df2,  file = "../data_final/loud_stage4-5.RData")
 loud.stage1.df <- st_drop_geometry(loud.stage1)
 
-write.csv(loud.stage1.df, "../data_final/loud_stage1.csv", row.names = FALSE)
+write.csv(loud.stage1.df, "../data_final_09-16-26/loud_stage1.csv", row.names = FALSE)
