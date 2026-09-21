@@ -1,8 +1,7 @@
 # M. Kolak - original script
-# Last updated: 7/27/26 by Hilary - getting familiar, thinking of ideas
-
-## Hilary - need to check on directionality for all variables. 
-## In Stage 1 high, values == low vulnerability, so don't we want the same for the other stages?
+# Last updated: 9/21/26 by Hilary
+## Weighting is updated
+## need to add in gravity model metrics
 
 library(tidyverse)
 setwd("~/Code/loud-study/scripts")
@@ -12,6 +11,8 @@ setwd("~/Code/loud-study/scripts")
 ############
 
 ### Historic presence of methadone  ###
+
+## Travel time ###################
 pastMethdn <- read.csv("../indicators_raw/historic-methadone-timeseries.csv")
 head(pastMethdn)
 str(pastMethdn)
@@ -32,19 +33,31 @@ pastMethdn <- pastMethdn %>%
 head(pastMethdn)
 
 ## Flip directionality as higher value == higher vulnerability
-pastMethdn$pastMethd10Sc <- pastMethdn$pastMethd10*(-1) ## would suggest 1 minus pastMethd10 to get positive values instead
+pastMethdn$pastMethd10Sc <- pastMethdn$pastMethd10*(-1)
 
 pastMethdn.2 <- pastMethdn %>%
   mutate(across(c(pastMethd10Sc), ~ replace_na(., -999)))
 head(pastMethdn.2)
 
-pastMetdn.loud <- select(pastMethdn.2,HEROP_ID,pastMethd10,pastMethd10Sc)
+
+## Gravity model ###################
+pastMethdn_g <- read.csv("CSV here")
+head(pastMethdn_g)
+str(pastMethdn_g)
+
+## continue...
+
+
+## Combine everything ###############
+pastMetdn.loud <- select(pastMethdn.2,HEROP_ID,pastMethd10,pastMethd10Sc,pastMethd10_G,pastMethd10Sc_G)
 head(pastMetdn.loud)
 
 summary(pastMetdn.loud)
 
 ############
 ### MOUD types nearby ###
+
+## Travel time #########
 MOUDType_wOTP <- read.csv("../indicators_raw/MOUDType_wOTP.csv")
 head(MOUDType_wOTP)
 
@@ -65,7 +78,16 @@ summary(MOUDType_wOTP)
 hist(MOUDType_wOTP$MOUDType)
 dim(MOUDType_wOTP) #85187
 
-MOUDType.loud <- select(MOUDType_wOTP, HEROP_ID,MOUDType)
+
+## Gravity model ###################
+MOUDType_wOTP_g <- read.csv("CSV here")
+head(MOUDType_wOTP_g)
+
+## continue...
+
+
+## Combine everything ###############
+MOUDType.loud <- select(MOUDType_wOTP, HEROP_ID,MOUDType, MOUDType_G)
 head(MOUDType.loud)
 
 
@@ -83,7 +105,6 @@ head(ssp.df1)
 dim(ssp.df1) # 85187
 
 ## Flip directionality as higher value == higher vulnerability
-## Hilary: I think this one does need to be flipped but would suggest 1 minus ssp2 to get positive values instead
 ssp.df1$ssp2Sc <- ssp.df1$ssp2 * (-1)
 head(ssp.df1)
 
@@ -108,7 +129,6 @@ head(abstinence.df1)
 dim(abstinence.df1) # 85187
 
 ## Flip directionality as higher value == higher vulnerability 
-## Hilary: same as SSP variable - I think we do want to flip so high values = low vulnerability - this wasn't done previouslys
 abstinence.df1$abst2Sc <- abstinence.df1$abst2 * (-1)
 head(abstinence.df1)
 
@@ -138,7 +158,10 @@ head(loud.stage2.3)
 ## Merge with Geographic Boundaries, Continent only
 
 library(sf)
-tract.sf <- st_read("../indicators_raw/tract-continental.geojson") ## Hilary: couldn't find where this file is stored - but is it identical to loud-cleaned.geojson?
+#tract.sf <- st_read("../indicators_raw/tract-continental.geojson") 
+tract.sf <- st_read("../indicators_raw/loud-cleaned.geojson") %>% 
+  select("HEROP_ID")
+
 head(tract.sf)
 
 ## Limit to US-continent only
@@ -164,13 +187,19 @@ hist(loud.stage2$Stage2)
 head(loud.stage2)
 summary(loud.stage2$Stage2)
 
+# Weighted by Advisory
+loud.stage2$Stage2W <- ((.611*loud.stage2$pastMethd10ScPPL) + 
+                          (.769*loud.stage2$ssp2ScPPL) +
+                          (.679*loud.stage2$abstPPL) + 
+                          (.759*loud.stage2$MOUDTypePPL) )/ (.611 + .769 + .679 + .759)
+
+hist(loud.stage2$Stage2W)
 head(loud.stage2)
 
 ### Write Data
 
-st_write(loud.stage2, "../data_final/loud.stage2.geojson")
+st_write(loud.stage2, "../data_final_09-16-26/loud.stage2.geojson")
 
-#save(loud.stage5.df2,  file = "../data_final/loud_stage4-5.RData")
 loud.stage2.df <- st_drop_geometry(loud.stage2)
 
-write.csv(loud.stage2.df, "../data_final/loud_stage2.csv", row.names = FALSE)
+write.csv(loud.stage2.df, "../data_final_09-16-26/loud_stage2.csv", row.names = FALSE)

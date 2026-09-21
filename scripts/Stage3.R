@@ -1,5 +1,7 @@
 # M. Kolak - original script
-# Last updated: 7/28/26 by Hilary - getting familiar, thinking of ideas
+# Last updated: 9/21/26 by Hilary
+## Weighting is updated
+## need to add in gravity model metrics
 
 setwd("~/Code/loud-study/scripts")
 
@@ -10,24 +12,17 @@ library(tidyverse)
 ############
 
 ## Transportation behaviors
-## Hilary: Maybe I'm thinking of this wrong or am not as well read on the topic, but did you consider just using % commuters driving? 
-## What about existence of public transit via # of bus stops/subway stations (given data availability)? 
-## I think I'm just not convinced that these 3 variables are capturing vulnerability in the right way. 
-## For example, I agree that high % no vehicle means high vulnerability, but if that area also has high access to public transportation, maybe they aren't as vulnerable as places without public transportation.
-## But I see you didn't include CommTransit and CommWalking in the final calculation, which I think makes sense. But my suggestion is to potentially include some measure of transit availability.
 
 commuting <- read.csv("../indicators_raw/commuting_tract23.csv")
 head(commuting)
 summary(commuting) 
 
 ## Flip directionality as higher value == higher vulnerability 
-## Hilary: Same comment as before about flipping these to make them positive values
 commuting$NoVehHHldSc <- commuting$NoVehHHld*(-1)
 commuting$CommTransitSc <- commuting$CommTransit*(-1)
-commuting$CommWalkingSc <- commuting$CommWalking*(-1)
 head(commuting)
 
-commuting.loud <- select(commuting, HEROP_ID, NoVehHHld,CommTransit,CommWalking,NoVehHHldSc,CommTransitSc,CommWalkingSc)
+commuting.loud <- select(commuting, HEROP_ID, NoVehHHld,CommTransit,NoVehHHldSc,CommTransitSc)
 head(commuting.loud)
 
 
@@ -164,6 +159,7 @@ summary(loud.stage3)
 loud.stage3$DisbPScPPL <- percent_rank(loud.stage3$DisbPSc)
 loud.stage3$FqhcTmDr2ScPPL <- percent_rank(loud.stage3$FqhcTmDr2Sc)
 loud.stage3$NoVehHHldScPPL <- percent_rank(loud.stage3$NoVehHHldSc)
+loud.stage3$CommTransitScPPL <- percent_rank(loud.stage3$CommTransitSc)
 loud.stage3$MetTmDr2ScPPL <- percent_rank(loud.stage3$MetTmDr2Sc)
 loud.stage3$BupTmDr2ScPPL <- percent_rank(loud.stage3$BupTmDr2Sc)
 loud.stage3$NaltTmDr2ScPPL <- percent_rank(loud.stage3$NaltTmDr2Sc)
@@ -176,17 +172,32 @@ head(loud.stage3)
 
 # Equally Weighted
 loud.stage3$Stage3 <- (loud.stage3$DisbPScPPL + loud.stage3$FqhcTmDr2ScPPL +
-                             loud.stage3$NoVehHHldScPPL + loud.stage3$MetTmDr2ScPPL + 
+                             loud.stage3$NoVehHHldScPPL + loud.stage3$CommTransitScPPL + loud.stage3$MetTmDr2ScPPL + 
                              loud.stage3$BupTmDr2ScPPL + loud.stage3$NaltTmDr2ScPPL +
                              loud.stage3$PharmTmDr2ScPPL + loud.stage3$OdMortRtAvScPPL + 
                              loud.stage3$BupPolRstScPPL 
-                           )/9
+                           )/10
 hist(loud.stage3$Stage3)
 head(loud.stage3)
 
-st_write(loud.stage3, "../data_final/loud.stage3.geojson")
 
-#save(loud.stage5.df2,  file = "../data_final/loud_stage4-5.RData")
+# Weighted by Advisory
+loud.stage3$Stage3W <- ((0.881 * loud.stage3$NoVehHHldScPPL) + 
+                          (0.881 * loud.stage3$CommTransitScPPL) +
+                          (0.551 * loud.stage3$DisbPScPPL) +
+                          (0.796 * loud.stage3$MetTmDr2ScPPL) +
+                          (0.796 * loud.stage3$BupTmDr2ScPPL) +
+                          (0.796 * loud.stage3$NaltTmDr2ScPPL) +
+                          (0.717 * loud.stage3$PharmTmDr2ScPPL) +
+                          (0.570 * loud.stage3$FqhcTmDr2ScPPL) +
+                          (0.823 * loud.stage3$OdMortRtAvScPPL) +
+                          (0.704 * loud.stage3$BupPolRstScPPL))/ (.881 + .881 + .551 + .796 + .796 + .796 + .717 + .57 + .823 + .704)
+
+hist(loud.stage3$Stage3W)
+head(loud.stage3)
+
+st_write(loud.stage3, "../data_final_09-16-26/loud.stage3.geojson")
+
 loud.stage3.df <- st_drop_geometry(loud.stage3)
 
-write.csv(loud.stage3.df, "../data_final/loud_stage3.csv", row.names = FALSE)
+write.csv(loud.stage3.df, "../data_final_09-16-26/loud_stage3.csv", row.names = FALSE)
