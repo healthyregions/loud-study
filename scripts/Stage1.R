@@ -118,9 +118,9 @@ head(loud.stage1)
 # Weighted by Advisory
 
 loud.stage1$Stage1W <- ((.613*loud.stage1$IntIndPPL) + 
-                          (.380*loud.stage1$CenRspRtPPL) +
+                          (.761*loud.stage1$CenRspRtPPL) +
                           (.761*loud.stage1$SocCapIndPPL) + 
-                          (.716*loud.stage1$LimEngProfPPL) )/ (.613 + .38 + .761 + .716)
+                          (.716*loud.stage1$LimEngProfPPL) )/ (.613 + .761 + .761 + .716)
 
 hist(loud.stage1$Stage1W)
 head(loud.stage1)
