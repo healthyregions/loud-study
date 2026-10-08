@@ -1,5 +1,5 @@
 # M. Kolak - original script
-# Last updated: 9/21/26 by Hilary
+# Last updated: 10/8/26 by Hilary
 
 
 library(tidyverse)
@@ -8,87 +8,98 @@ setwd("~/Code/oeps2/data_to_merge/loud")
 ####################################################################
 # STAGE 4
 ####################################################################
-# Medicaid Expansion
-# Individual-level poverty at pop level %
-# Insurance Access
 
-# Medicaid
+############
+## Medicaid expansion
+############
+
+## Read in csv file
 medicaid <- read.csv("../indicators_raw/Medicaid_Policy_Proportion_state_level_2023.csv")
-head(medicaid)
+
+## Select necessary columns
 medicaid.df <- select(medicaid,HEROP_ID,MedPolProp)
-head(medicaid.df)
 
+## Get state
 medicaid.df$HEROP_State <- str_sub(medicaid.df$HEROP_ID, 6,7)
-head(medicaid.df)
 
-medicaid.df1 <- select(medicaid.df,HEROP_State,MedPolProp)
-head(medicaid.df1)
+## Select necessary columns
+medicaid.loud <- select(medicaid.df,HEROP_State,MedPolProp)
 
+## Dataframe to use later
+view(medicaid.loud)
+
+
+############
 # Insurance Access
+############
+
+## Read in csv file
 ins <- read.csv("../indicators_raw/insurance_tract23.csv")
-head(ins)
-priv.ins <- select(ins,HEROP_ID,PrivateInsP)
-head(priv.ins)
 
+## Select necessary columns
+ins.loud <- select(ins,HEROP_ID,PrivateInsP)
+
+## Dataframe to use later
+view(ins.loud)
+
+
+############
 # Poverty
-# OEPS 2023 data package -- too large to store in Git, reading locally
-oeps <- read.csv("~/Code/tract.csv")
+############
+
+## Read in csv file
+#oeps <- read.csv("~/Code/tract.csv")
 oeps <- read.csv("https://github.com/healthyregions/oeps/raw/refs/heads/main/backend/oeps/data/tables/tract-2023.csv") ## I'm assuming this is the same thing as tract.csv
-head(oeps)
 
-pov <- select(oeps,HEROP_ID,PovP)
-head(pov)
-summary(pov)
+## Select necessary columns
+pov.loud <- select(oeps,HEROP_ID,PovP)
 
-# Change directionality
-pov$PovPSc <- pov$PovP * (-1)
-head(pov)
+## Change directionality
+pov.loud$PovPSc <- pov.loud$PovP * (-1)
+
+## Dataframe to use later
+view(pov.loud)
+
 
 #############
 ## Merging
 #############
 
 library(sf)
-tract.sf <- st_read("../indicators_raw/tract-continental.geojson")
-head(tract.sf)
+#tract.sf <- st_read("../indicators_raw/tract-continental.geojson")
+tract.sf <- st_read("../indicators_raw/loud-cleaned.geojson") %>% 
+  select("HEROP_ID")
+
 
 ## Limit to US-continent only
-loud.stage4.1 <- left_join(tract.sf,pov, by="HEROP_ID")
-loud.stage4.2 <- left_join(loud.stage4.1, priv.ins, by="HEROP_ID")
-head(loud.stage4.2) #83507
-
-## 
+loud.stage4.1 <- left_join(tract.sf,pov.loud, by="HEROP_ID")
+loud.stage4.2 <- left_join(loud.stage4.1, ins.loud, by="HEROP_ID")
 loud.stage4.2$HEROP_State <- str_sub(loud.stage4.2$HEROP_ID, 6,7)
-head(loud.stage4.2)
-
-loud.stage4.3 <- left_join(loud.stage4.2, medicaid.df1, by="HEROP_State")
-head(loud.stage4.3)
+loud.stage4 <- left_join(loud.stage4.2, medicaid.loud, by="HEROP_State")
 
 
 ### Stage 4 Prep
-loud.stage4.3$PovPPL <- percent_rank(loud.stage4.3$PovPSc)
-loud.stage4.3$PrivateInsPPL <- percent_rank(loud.stage4.3$PrivateInsP)
-loud.stage4.3$MedPolPropPPL <- percent_rank(loud.stage4.3$MedPolProp)
-head(loud.stage4.3)
+loud.stage4$PovPPL <- percent_rank(loud.stage4.3$PovPSc)
+loud.stage4$PrivateInsPPL <- percent_rank(loud.stage4.3$PrivateInsP)
+loud.stage4$MedPolPropPPL <- percent_rank(loud.stage4.3$MedPolProp)
+
 
 # Equally Weighted
-loud.stage4.3$Stage4 <- (loud.stage4.3$PovPPL + loud.stage4.3$PrivateInsPPL+
-                             loud.stage4.3$MedPolPropPPL)/3
-hist(loud.stage4.3$Stage4)
-head(loud.stage4.3)
+loud.stage4$Stage4 <- (loud.stage4$PovPPL + loud.stage4$PrivateInsPPL+
+                             loud.stage4$MedPolPropPPL)/3
+
 
 # Weighted by Advisory
-loud.stage4$Stage4W <- ((.684*loud.stage4.3$PovPPL) + 
-                          (.829*loud.stage4.3$PrivateInsPPL) +
-                          (.744*loud.stage4.3$MedPolPropPPL))/ (.684 + .829 + .744)
+loud.stage4$Stage4W <- ((.684*loud.stage4$PovPPL) + 
+                          (.829*loud.stage4$PrivateInsPPL) +
+                          (.744*loud.stage4$MedPolPropPPL))/ (.684 + .829 + .744)
 
-hist(loud.stage4$Stage4W)
-head(loud.stage4)
+
 
 ### Write Data
 
-st_write(loud.stage4.3, "../data_final_09-16-26/loud.stage4.geojson")
+st_write(loud.stage4, "../data_final_09-16-26/loud.stage4.geojson")
 
-loud.stage4.3 <- st_drop_geometry(loud.stage4.3)
+loud.stage4 <- st_drop_geometry(loud.stage4)
 
-write.csv(loud.stage4.3, "../data_final_09-16-26/loud_stage4.csv", row.names = FALSE)
+write.csv(loud.stage4, "../data_final_09-16-26/loud_stage4.csv", row.names = FALSE)
