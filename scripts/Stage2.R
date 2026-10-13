@@ -323,7 +323,7 @@ loud.stage2$Stage2W_G30 <- ((.611*loud.stage2$pastMethd10Sc_g30PPL) +
                           (.759*loud.stage2$MOUDTypePPL) )/ (.611 + .769 + .679 + .759)
 
 # Unequal weighting, gravity 60 m
-loud.stage2$Stage2W_G30 <- ((.611*loud.stage2$pastMethd10Sc_g60PPL) + 
+loud.stage2$Stage2W_G60 <- ((.611*loud.stage2$pastMethd10Sc_g60PPL) + 
                               (.769*loud.stage2$ssp2Sc_g60PPL) +
                               (.679*loud.stage2$abstSc_g60PPL) + 
                               (.759*loud.stage2$MOUDTypePPL) )/ (.611 + .769 + .679 + .759)
