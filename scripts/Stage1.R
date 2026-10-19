@@ -58,15 +58,17 @@ head(oeps)
 glimpse(oeps)
 
 english <- select(oeps,HEROP_ID,EngProf)
-head(english) ## at this point, low value == low vulnerability (low % of ppl w/ limited/no English), high value == high vulnerability (high % of ppl w/ limited/no English)
+head(english) 
 summary(english)
+## low values = less people proficient in English
+## high values = more people proficient in English
 
-english$EngProf <- english$EngProf * 100
+english$LimEngEngProf <- english$EngProf * 100
 head(english)
 
-## Flip directionality as higher value == higher vulnerability (lower English proficiency)
-english$LimEngProfSc <- english$EngProf * (-1) 
-head(english)
+## DONT DO THIS: Flip directionality as higher value == higher vulnerability 
+# english$LimEngProfSc <- english$EngProf * (-1) 
+# head(english)
 
 english.loud <- english
 head(english)
