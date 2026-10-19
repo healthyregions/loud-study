@@ -18,10 +18,10 @@ commuting <- read.csv("../indicators_raw/commuting_tract23.csv")
 
 ## Flip directionality as higher value == higher vulnerability 
 commuting$NoVehHHldSc <- commuting$NoVehHHld*(-1)
-commuting$CommTransitSc <- commuting$CommTransit*(-1)
+#commuting$CommTransitSc <- commuting$CommTransit*(-1) DONT Do for commuters
 
 ## Select necessary columns
-commuting.loud <- select(commuting, HEROP_ID, NoVehHHld,CommTransit,NoVehHHldSc,CommTransitSc)
+commuting.loud <- select(commuting, HEROP_ID, NoVehHHld,CommTransit,NoVehHHldSc)
 
 ## Dataframe to use later
 view(commuting.loud)
@@ -281,6 +281,16 @@ od.mort.loud$OdMortRtAvSc <- od.mort.loud$OdMortRtAv * (-1)
 view(od.mort.loud)
 
 
+############
+## Hepatitis C rates - maybe add in later
+############
+
+## Read in csv file
+HepC <- read.csv("../indicators_raw/county.csv")
+
+######
+
+
 
 ############
 ## State bup policies
@@ -352,7 +362,7 @@ loud.stage3 <- merge(tract.sf,loud.stage3.final, by="HEROP_ID")
 loud.stage3$DisbPScPPL <- percent_rank(loud.stage3$DisbPSc)
 loud.stage3$FqhcTmDr2ScPPL <- percent_rank(loud.stage3$FqhcTmDr2Sc)
 loud.stage3$NoVehHHldScPPL <- percent_rank(loud.stage3$NoVehHHldSc)
-loud.stage3$CommTransitScPPL <- percent_rank(loud.stage3$CommTransitSc)
+loud.stage3$CommTransitScPPL <- percent_rank(loud.stage3$CommTransit)
 loud.stage3$MetTmDr2ScPPL <- percent_rank(loud.stage3$MetTmDr2Sc)
 loud.stage3$BupTmDr2ScPPL <- percent_rank(loud.stage3$BupTmDr2Sc)
 loud.stage3$NaltTmDr2ScPPL <- percent_rank(loud.stage3$NaltTmDr2Sc)
