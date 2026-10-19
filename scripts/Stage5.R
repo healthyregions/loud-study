@@ -133,16 +133,16 @@ loud.stage5$Stage5_G60 <- (loud.stage5$supportiveSc_g60PPL + loud.stage5$HistRst
 
 # Weighted by Advisory, travel time
 loud.stage5$Stage5W <- ((.699*loud.stage5$supportiveScPPL) + 
-                          (.740*loud.stage5$HistRstMMTPPL) / (.699 + .74))
+                          (.740*loud.stage5$HistRstMMTPPL)) / (.699 + .74)
 
 
 # Weighted by Advisory, gravity 30 m
 loud.stage5$Stage5W_G30 <- ((.699*loud.stage5$supportiveSc_g30PPL) + 
-                          (.740*loud.stage5$HistRstMMTPPL) / (.699 + .74))
+                          (.740*loud.stage5$HistRstMMTPPL)) / (.699 + .74)
 
 # Weighted by Advisory, gravity 60 m
 loud.stage5$Stage5W_G60 <- ((.699*loud.stage5$supportiveSc_g60PPL) + 
-                          (.740*loud.stage5$HistRstMMTPPL) / (.699 + .74))
+                          (.740*loud.stage5$HistRstMMTPPL)) / (.699 + .74)
 
 
 ### Write Data
