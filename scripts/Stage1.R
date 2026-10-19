@@ -63,7 +63,7 @@ summary(english)
 ## low values = less people proficient in English
 ## high values = more people proficient in English
 
-english$LimEngEngProf <- english$EngProf * 100
+english$LimEngProf <- english$EngProf * 100
 head(english)
 
 ## DONT DO THIS: Flip directionality as higher value == higher vulnerability 
@@ -108,7 +108,7 @@ loud.stage1 <- loud.stage1.3.us
 loud.stage1$IntIndPPL <- percent_rank(loud.stage1$IntInd)
 loud.stage1$CenRspRtPPL <- percent_rank(loud.stage1$RspRt)
 loud.stage1$SocCapIndPPL <- percent_rank(loud.stage1$SocCapInd)
-loud.stage1$LimEngProfPPL <- percent_rank(loud.stage1$LimEngProfSc)
+loud.stage1$LimEngProfPPL <- percent_rank(loud.stage1$LimEngProf)
 head(loud.stage1)
 
 # Equally Weighted
