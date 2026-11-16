@@ -79,9 +79,9 @@ loud.stage4 <- left_join(loud.stage4.2, medicaid.loud, by="HEROP_State")
 
 
 ### Stage 4 Prep
-loud.stage4$PovPPL <- percent_rank(loud.stage4.3$PovPSc)
-loud.stage4$PrivateInsPPL <- percent_rank(loud.stage4.3$PrivateInsP)
-loud.stage4$MedPolPropPPL <- percent_rank(loud.stage4.3$MedPolProp)
+loud.stage4$PovPPL <- percent_rank(loud.stage4$PovPSc)
+loud.stage4$PrivateInsPPL <- percent_rank(loud.stage4$PrivateInsP)
+loud.stage4$MedPolPropPPL <- percent_rank(loud.stage4$MedPolProp)
 
 
 # Equally Weighted
