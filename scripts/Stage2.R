@@ -1,5 +1,5 @@
 # M. Kolak - original script
-# Last updated: 10/5/26 by Hilary
+# Last updated: 11/16/26 by Hilary
 
 library(tidyverse)
 setwd("~/Code/loud-study/scripts")
@@ -189,12 +189,12 @@ abst <- read.csv("../indicators_raw/abstinence-tract-2020.csv")
 abst <- abst %>%
   rename(abst2 = Minutes2)
 
-## Flip directionality as higher value == higher vulnerability 
-abst$abst2Sc <- abst$abst2 * (-1)
+## Dont flip directionality
+abst$abst2Sc <- abst$abst2 
 
-## Replace NAs with -999
+## Replace NAs with -+999
 abst.2 <- abst %>%
-  mutate(across(c(abst2Sc), ~ replace_na(., -999)))
+  mutate(across(c(abst2Sc), ~ replace_na(., 999)))
 
 ## Travel time version
 view(abst.2)
@@ -211,15 +211,15 @@ abst_g <- abst_g %>%
   rename(abst_g30 = AbsRm30,
          abst_g60 = AbsRm60)
 
-## Flip directionality as higher value == higher vulnerability
-abst_g$abstSc_g30 <- abst_g$abst_g30*(-1)
-abst_g$abstSc_g60 <- abst_g$abst_g60*(-1)
+## DONT Flip directionality =
+abst_g$abstSc_g30 <- abst_g$abst_g30
+abst_g$abstSc_g60 <- abst_g$abst_g60
 
 
-## Replace NAs with -999
+## Replace NAs with +999
 abst_g <- abst_g %>%
-  mutate(across(c(abstSc_g30), ~ replace_na(., -999)),
-         across(c(abstSc_g60), ~ replace_na(., -999)))
+  mutate(across(c(abstSc_g30), ~ replace_na(., 999)),
+         across(c(abstSc_g60), ~ replace_na(., 999)))
 
 ## Gravity model version
 view(abst_g)
@@ -236,10 +236,10 @@ abst2.loud <- select(abst_g, HEROP_ID, abst_g30, abstSc_g30, abst_g60, abstSc_g6
 abst.loud <- abst.loud %>%
   left_join(abst2.loud, by = "HEROP_ID")
 
-## Ensure all scaled variable NA values are replaced with -999
+## Ensure all scaled variable NA values are replaced with 999
 abst.loud <- abst.loud %>%
-  mutate(across(c(abstSc_g30), ~ replace_na(., -999)),
-         across(c(abstSc_g60), ~ replace_na(., -999)))
+  mutate(across(c(abstSc_g30), ~ replace_na(., 999)),
+         across(c(abstSc_g60), ~ replace_na(., 999)))
 
 ## Dataframe to use later
 view(abst.loud)
@@ -255,7 +255,7 @@ loud.stage2.2 <- left_join(loud.stage2.1, ssp.loud, by="HEROP_ID")
 loud.stage2.3 <- left_join(loud.stage2.2, pastMetdn.loud, by="HEROP_ID")
 head(loud.stage2.3)
 
-## Ensure -999 for travel variables
+## Ensure +-999 for travel variables
 loud.stage2.3 <- loud.stage2.3 %>%
   mutate(across(c(pastMethd10Sc), ~ replace_na(., -999)),
          across(c(pastMethd10Sc_g30), ~ replace_na(., -999)),
@@ -263,9 +263,9 @@ loud.stage2.3 <- loud.stage2.3 %>%
          across(c(sspSc), ~ replace_na(., -999)),
          across(c(sspSc_g30), ~ replace_na(., -999)),
          across(c(sspSc_g60), ~ replace_na(., -999)),
-         across(c(abst2Sc), ~ replace_na(., -999)),
-         across(c(abstSc_g30), ~ replace_na(., -999)),
-         across(c(abstSc_g60), ~ replace_na(., -999)))
+         across(c(abst2Sc), ~ replace_na(., 999)),
+         across(c(abstSc_g30), ~ replace_na(., 999)),
+         across(c(abstSc_g60), ~ replace_na(., 999)))
 
 
 ## Merge with Geographic Boundaries, Continent only
